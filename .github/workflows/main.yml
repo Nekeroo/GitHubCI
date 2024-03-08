@@ -39,5 +39,5 @@ jobs:
       
       - name: test
         run: |
-          npm run test
+          npm run test -- --browsers ChromeHeadlessNoSandbox
         working-directory: ./app-angular
