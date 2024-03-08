@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   install:
-    runs-on: ubuntu-latest
+    runs-on: trion/ng-cli-karma:latest
     strategy:
       matrix:
         node-version: [20]
