@@ -18,7 +18,6 @@ jobs:
           
       - name: Install dependencies
         run: |
-          cd app-angular
           npm install
         working-directory: ./app-angular
           
@@ -30,18 +29,15 @@ jobs:
           
       - name: lint
         run: |
-          cd app-angular
           npm run lint
         working-directory: ./app-angular
       
       - name: audit
         run: |
-          cd app-angular
           npm audit
         working-directory: ./app-angular
       
       - name: test
         run: |
-          cd app-angular
           npm run test
         working-directory: ./app-angular
