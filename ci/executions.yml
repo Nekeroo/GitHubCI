@@ -1,0 +1,45 @@
+stages:
+  - install
+  - linter
+  - audit
+  - test
+
+job_install:
+  stage: install
+  image: node:20-alpine3.19
+  artifacts:
+    expire_in: 1h
+    paths:
+      - app-angular/node_modules/
+  script:
+    - cd app-angular
+    - npm install 
+  needs: []
+
+job_linter:
+  stage: linter
+  image: node:20-alpine3.19
+  script:
+    - cd app-angular
+    - pwd
+    - npm run lint
+  needs:
+    - job_install
+
+job_audit:
+  stage: audit
+  image: node:20-alpine3.19
+  script:
+    - cd app-angular
+    - npm audit
+  needs:
+    - job_install
+
+job_test:
+  stage: test
+  image: trion/ng-cli-karma:latest
+  script:
+    - cd app-angular
+    - npm run test
+  needs:
+    - job_install
