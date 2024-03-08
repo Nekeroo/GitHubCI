@@ -42,7 +42,7 @@ jobs:
           npm run test -- --browsers ChromeHeadlessNoSandbox
         working-directory: ./app-angular
 
-        - name: Checkout code
+      - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Set up Docker Buildx
