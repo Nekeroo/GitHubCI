@@ -1,0 +1,47 @@
+name: Angular CI
+
+on: [push]
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          
+      - name: Install dependencies
+        run: |
+          cd app-angular
+          npm install
+        working-directory: ./app-angular
+          
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: app-angular/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          
+      - name: lint
+        run: |
+          cd app-angular
+          npm run lint
+        working-directory: ./app-angular
+      
+      - name: audit
+        run: |
+          cd app-angular
+          npm audit
+        working-directory: ./app-angular
+      
+      - name: test
+        run: |
+          cd app-angular
+          npm run test
+        working-directory: ./app-angular
